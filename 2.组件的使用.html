@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h1 style="text-align: center;">欢迎来到运城临猗</h1>
+			<router-link to="/index">首页</router-link>
+			<router-link to="/user">用户</router-link>
+			<hr>
+			<router-view></router-view>
+		</div>
+		
+	</body>
+	<script type="text/javascript">
+		let index = {
+			template:`
+				<div>
+					<h2>这里是首页</h2>
+					<h3>欢迎来到美丽的果都临猗</h3>
+				</div>
+			`,
+		}
+		
+		let user = {
+			template:`
+				<table border='2'>
+					<tr style='text-align:center'>
+						<td>序号</td>
+						<td>姓名</td>
+						<td>年龄</td>
+						<td>操作</td>
+					</tr>
+					<tr v-for='(user,index) in users' :key='index'>
+						<td>{{user.id}}</td>
+						<td>{{user.name}}</td>
+						<td>{{user.age}}</td>
+						<td><a href='javascript:;' @click="del(index)">删除</a>|<a href='javascript:;'>更新</a></td>
+					</tr>
+			`,
+			data(){
+				return{
+					users:[
+						{"id": 1, name: "武林源", age: "18"},
+						{"id": 2, name: "王承乾", age: "19"},
+						{"id": 3, name: "毛耀华", age: "20"},
+						{"id": 4, name: "王琛玉", age: "21"},
+					]
+				}
+			},
+			methods:{
+				del(index){
+					console.log(index)
+					this.users.splice(index,1)
+					console.log(this.users)
+				}
+			}
+		}
+		
+		let myrouter = new VueRouter({
+			routes:[
+				{path:'/index',component:index},
+				{path:'/user',component:user},
+				{path:'/',component:index},
+				{path:'/*',component:index}
+			]
+		})
+		
+		new Vue({
+		el: '#app',
+		data: {
+			
+		},
+		methods:{
+			
+		},
+		router:myrouter,
+		})
+	</script>
+</html>

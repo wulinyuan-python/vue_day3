@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<router-view></router-view>
+		</div>
+		
+	</body>
+	<script type="text/javascript">
+		//第一个组件
+		let f_zu = {
+			template:`
+				这里是组件1
+				<router-link to="/second?id=22&name=wly">go，咱们去组件二</router-link>
+			`,
+		}
+		
+		//第二个组件
+		let s_zu = {
+			template:`
+				<div>这是组件2: 需要接受组件1传递过来的id--->: {{ $route.query.id }}
+				<br>
+				这是上个组件传递的用户名--->: {{$route.query.name}}
+				<router-link to='/first'>回到组件一</router-link>
+				</div>
+				
+			`,
+		}
+		
+		//配置路由
+		let myrouter = new VueRouter({
+			routes:[
+				{path:'/first',component:f_zu},
+				{path:'/second',component:s_zu},
+				{path:'/',component:f_zu}
+			]
+		})
+		
+		new Vue({
+		el: '#app',
+		data: {
+			
+		},
+		methods:{
+			
+		},
+		router:myrouter,
+		})
+	</script>
+</html>

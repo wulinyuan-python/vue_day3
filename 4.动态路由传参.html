@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<router-view></router-view>
+		</div>
+		
+	</body>
+	<script type="text/javascript">
+		//组件1
+		let f_zu = {
+			template:`
+				<div>
+				这是组件1
+				<br>
+				<b>接收组件2传递来的球衣号：{{$route.params.id}}
+				<br>
+				接收组件2传递来的名字：{{$route.params.name}}</b><br>
+				<router-link to="/second/23/james">访问组件2</router-link>
+				</div>
+			`,
+		}
+		
+		//组件2
+		let s_zu = {
+			template:`
+				<div>
+				这是组件2: 
+				<br>
+				<b>
+				接受组件1传递的球衣号: {{$route.params.id}}<br>
+				这是组件1传递的名字： {{$route.params.name}}
+				</b><br>
+				<router-link to='/first/24/kobe'>回到组件1并传递参数</router-link>
+				</div>
+				
+			`,
+		}
+		
+		//构件路由
+		let myrouter = new VueRouter({
+			routes:[
+				{path:'/first/:id/:name',component:f_zu},
+				{path:'/second/:id/:name',component:s_zu},
+				{path:'/',redirect:'/first/24/kobe'}
+			]
+		})
+		
+		new Vue({
+		el: '#app',
+		data: {
+			
+		},
+		methods:{
+			
+		},
+		router:myrouter,
+		})
+	</script>
+</html>
